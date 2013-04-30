@@ -1,0 +1,22 @@
+/* 
+    Document   : MainScene
+    Created on : 2/04/2013, 12:05:18 PM
+    Author     : elbrujo
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root 
+{ 
+    display: block;
+}
+.root
+{
+    
+}
+.label
+{
+    -fx-base: #336699;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}

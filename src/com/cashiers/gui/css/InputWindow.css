@@ -1,0 +1,26 @@
+/* 
+    Document   : MainScene
+    Created on : 2/04/2013, 12:05:18 PM
+    Author     : elbrujo
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root 
+{ 
+    display: block;
+}
+.root
+{
+    -fx-background-color: DAE6F3;
+}
+#label-id
+{
+    -fx-font-weight: bold;
+}
+.button
+{
+    -fx-base: #336699;
+    -fx-font-weight: bold;
+}
+
