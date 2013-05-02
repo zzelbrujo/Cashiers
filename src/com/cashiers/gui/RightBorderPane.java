@@ -19,8 +19,8 @@ public class RightBorderPane extends javafx.scene.layout.BorderPane
     {
         super();
         
-        setPadding(new javafx.geometry.Insets(10, 10, 10, 10));
-        setId("right-tile-pane");
+        setPadding(new javafx.geometry.Insets(0, 10, 0, 10));
+        setId("right-border-pane");
         
         addControls();
     }

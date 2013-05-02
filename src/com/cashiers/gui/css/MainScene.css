@@ -12,42 +12,61 @@ root
 }
 #top-hbox
 {
-    -fx-background-color: #336699;
+    -fx-background-color: #ffffff;
 }
 #bottom-hbox
 {
-    -fx-background-color: #336699;
+    -fx-background-color: #ffffff;
 }
-#right-tile-pane
+#right-border-pane
 {
-    -fx-background-color: DAE6F3;
+    -fx-background-color: #ffffff;
 }
+#center-stack-pane
+{
+}
+
 #label-main-name
 {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-text-fill: #333333;  
 }
 #label-id
 {
     -fx-font-size: 14px;
     -fx-font-family: "Arial Black";
-    -fx-text-fill: #333333FF;
 }
 #label-date-and-time
 {
     -fx-font-weight: bold;
-    -fx-text-fill: #FFFFFFFF;
 }
-.table-view .column-header
+.table-view
 {
+    -fx-border-color: #ffffff;
+}
+.table-view .column-header 
+{
+    -fx-background-color: #ffffff;
+    -fx-border-style: none;
     -fx-font-size: 10;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
 }
+.table-row-cell:empty 
+{
+    -fx-background-color: #ffffff;
+}
+
+.table-row-cell:empty .table-cell
+{
+    -fx-border-width: 0px;
+}
+
 .button
 {
-    -fx-base: #336699;
+    -fx-base: #000000;
     -fx-font-weight: bold;
+    -fx-border-color: #000000;
+    -fx-background-insets: 0;
 }
 

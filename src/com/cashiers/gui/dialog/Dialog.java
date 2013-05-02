@@ -1,5 +1,6 @@
 package com.cashiers.gui.dialog;
 
+import com.cashiers.util.Util;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.HashMap;
@@ -15,8 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+//import javafx.scene.image.Image;
+//import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.DataFormat;
 import javafx.scene.layout.BorderPane;
@@ -35,10 +36,10 @@ public class Dialog extends Stage {
 
     protected String stacktrace;
     protected double originalWidth, originalHeight;
-    
+   
     protected Scene scene;
     protected BorderPane borderPanel;
-    protected ImageView icon;
+//    protected ImageView icon;
     
     protected VBox messageBox;
     protected Label messageLabel;
@@ -74,36 +75,39 @@ public class Dialog extends Stage {
         protected static final int MESSAGE_MIN_WIDTH = 180;
         protected static final int MESSAGE_MAX_WIDTH = 800;
         protected static final int BUTTON_WIDTH = 60;
-        protected static final double MARGIN = 10;
-        protected static final String ICON_PATH = "/com/cashiers/gui/dialog/images/";
+        protected static final double MARGIN = 20;
+//        protected static final String ICON_PATH = "/com/cashiers/gui/dialog/images/";
         
         protected Dialog stage;
         
         public Builder create() {
             stage = new Dialog();
+            stage.setWidth(Util.getScreenBounds().getWidth());
             stage.setResizable(false);
-            stage.initStyle(StageStyle.UTILITY);
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.initModality(Modality.APPLICATION_MODAL);                        
             stage.setIconified(false);
-            stage.centerOnScreen();
+//            stage.centerOnScreen();
+            
             stage.borderPanel = new BorderPane();
+            stage.borderPanel.getStyleClass().add("pane");
 
             // icon
-            stage.icon = new ImageView();
-            stage.borderPanel.setLeft(stage.icon);
-            BorderPane.setMargin(stage.icon, new Insets(MARGIN));
+//            stage.icon = new ImageView();
+//            stage.borderPanel.setLeft(stage.icon);
+//            BorderPane.setMargin(stage.icon, new Insets(MARGIN));
             
             // message
             stage.messageBox = new VBox();
-            stage.messageBox.setAlignment(Pos.CENTER_LEFT);
+            stage.messageBox.setAlignment(Pos.CENTER);
             
             stage.messageLabel = new Label();
             stage.messageLabel.setWrapText(true);
-            stage.messageLabel.setMinWidth(MESSAGE_MIN_WIDTH);
-            stage.messageLabel.setMaxWidth(MESSAGE_MAX_WIDTH);
+//            stage.messageLabel.setMinWidth(MESSAGE_MIN_WIDTH);
+//            stage.messageLabel.setMaxWidth(MESSAGE_MAX_WIDTH);
             
             stage.messageBox.getChildren().add(stage.messageLabel);
-            stage.borderPanel.setCenter(stage.messageBox);
+            stage.borderPanel.setTop(stage.messageBox);
             BorderPane.setAlignment(stage.messageBox, Pos.CENTER);
             BorderPane.setMargin(stage.messageBox, new Insets(MARGIN, MARGIN, MARGIN, 2 * MARGIN));
             
@@ -114,15 +118,18 @@ public class Dialog extends Stage {
             BorderPane.setMargin(stage.buttonsPanel, new Insets(0, 0, 1.5 * MARGIN, 0));
             stage.borderPanel.setBottom(stage.buttonsPanel);
             stage.borderPanel.widthProperty().addListener(new ChangeListener<Number> () {
-
                 public void changed(ObservableValue<? extends Number> ov, Number t, Number t1) {
                     stage.buttonsPanel.layout();
+                }     
+            });
+            stage.borderPanel.heightProperty().addListener(new ChangeListener<Number>() {
+                public void changed(ObservableValue<? extends Number> ov, Number t, Number t1) {
+                    stage.setX(0);
+                    stage.setY((Util.getScreenBounds().getHeight() / 2) - (t1.doubleValue() / 2));
                 }
-                
             });
             
             stage.scene = new Scene(stage.borderPanel);
-            
             
             stage.setScene(stage.scene);
             stage.getScene().getStylesheets().add(Dialog.class.getResource("css/DialogWindow.css").toExternalForm());
@@ -151,7 +158,7 @@ public class Dialog extends Stage {
         
         private void alignScrollPane() {
             stage.setWidth(
-                stage.icon.getImage().getWidth()
+//                stage.icon.getImage().getWidth()
                 + Math.max(
                     stage.messageLabel.getWidth(),
                     (stage.stacktraceVisible 
@@ -163,7 +170,8 @@ public class Dialog extends Stage {
             
             stage.setHeight(
                     Math.max(
-                        stage.icon.getImage().getHeight(),
+//                        stage.icon.getImage().getHeight(),
+                        0,
                         stage.messageLabel.getHeight()
                             + stage.stacktraceButtonsPanel.getHeight()
                             + (stage.stacktraceVisible
@@ -203,14 +211,14 @@ public class Dialog extends Stage {
             // stacktrace text
             stage.stackTraceLabel = new Label();
             stage.stackTraceLabel.widthProperty().addListener(new ChangeListener<Number>() {
-
+                @Override
                 public void changed(ObservableValue<? extends Number> ov, Number oldValue, Number newValue) {
                     alignScrollPane();
                 }
             });
             
             stage.stackTraceLabel.heightProperty().addListener(new ChangeListener<Number>() {
-
+                @Override
                 public void changed(ObservableValue<? extends Number> ov, Number oldValue, Number newValue) {
                     alignScrollPane();
                 }
@@ -223,7 +231,7 @@ public class Dialog extends Stage {
             stage.scrollPane.setContent(stage.stackTraceLabel);
             
             stage.viewStacktraceButton.setOnAction(new EventHandler<ActionEvent>() {
-
+                @Override
                 public void handle(ActionEvent t) {
                     stage.stacktraceVisible = !stage.stacktraceVisible;
                     if (stage.stacktraceVisible) {
@@ -245,7 +253,7 @@ public class Dialog extends Stage {
             });
             
             stage.copyStacktraceButton.setOnAction(new EventHandler<ActionEvent>() {
-
+                @Override
                 public void handle(ActionEvent t) {
                     Clipboard clipboard = Clipboard.getSystemClipboard();
                     Map<DataFormat, Object> map = new HashMap<DataFormat, Object>();
@@ -255,7 +263,7 @@ public class Dialog extends Stage {
             });
             
             stage.showingProperty().addListener(new ChangeListener<Boolean>() {
-
+                @Override
                 public void changed(ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newValue) {
                     if (newValue) {
                         stage.originalWidth = stage.getWidth();
@@ -267,41 +275,41 @@ public class Dialog extends Stage {
             return this;
         }
         
-        protected void setIconFromResource(String resourceName) {
-            final Image image = new Image(getClass().getResourceAsStream(resourceName));
-            stage.icon.setImage(image);
-        }
+//        protected void setIconFromResource(String resourceName) {
+//            final Image image = new Image(getClass().getResourceAsStream(resourceName));
+//            stage.icon.setImage(image);
+//        }
         
-        protected Builder setWarningIcon() {
-            setIconFromResource(ICON_PATH + "warningIcon.png");
-            return this;
-        }
-        
-        protected Builder setErrorIcon() {
-            setIconFromResource(ICON_PATH + "errorIcon.png");
-            return this;
-        }
-        
-        protected Builder setThrowableIcon() {
-            setIconFromResource(ICON_PATH + "bugIcon.png");
-            return this;
-        }
-        
-        protected Builder setInfoIcon() {
-            setIconFromResource(ICON_PATH + "infoIcon.png");
-            return this;
-        }
-        
-        protected Builder setConfirmationIcon() {
-            setIconFromResource(ICON_PATH + "confirmationIcon.png");
-            return this;
-        }
+//        protected Builder setWarningIcon() {
+//            setIconFromResource(ICON_PATH + "warningIcon.png");
+//            return this;
+//        }
+//        
+//        protected Builder setErrorIcon() {
+//            setIconFromResource(ICON_PATH + "errorIcon.png");
+//            return this;
+//        }
+//        
+//        protected Builder setThrowableIcon() {
+//            setIconFromResource(ICON_PATH + "bugIcon.png");
+//            return this;
+//        }
+//        
+//        protected Builder setInfoIcon() {
+//            setIconFromResource(ICON_PATH + "infoIcon.png");
+//            return this;
+//        }
+//        
+//        protected Builder setConfirmationIcon() {
+//            setIconFromResource(ICON_PATH + "confirmationIcon.png");
+//            return this;
+//        }
                 
         protected Builder addOkButton() {
             stage.okButton = new Button("Si");
             stage.okButton.setPrefWidth(BUTTON_WIDTH);
             stage.okButton.setOnAction(new EventHandler<ActionEvent> () {
-
+                @Override
                 public void handle(ActionEvent t) {
                     stage.close();
                 }
@@ -315,11 +323,13 @@ public class Dialog extends Stage {
             Button confirmationButton = new Button(buttonCaption);
             confirmationButton.setMinWidth(BUTTON_WIDTH);
             confirmationButton.setOnAction(new EventHandler<ActionEvent>() {
-
+                @Override
                 public void handle(ActionEvent t) {
                     stage.close();
                     if (actionHandler != null)
+                    {
                         actionHandler.handle(t);
+                    }
                 }
             });
             
@@ -363,8 +373,9 @@ public class Dialog extends Stage {
          * @return dialog instance
          */
         public Dialog build() {
-            if (stage.buttonsPanel.getChildren().size() == 0)
+            if (stage.buttonsPanel.getChildren().size() == 0) {
                 throw new RuntimeException("Add one dialog button at least");
+            }
             
             stage.buttonsPanel.getChildren().get(0).requestFocus();
             return stage;
@@ -378,7 +389,7 @@ public class Dialog extends Stage {
             .create()
             .setOwner(owner)
             .setTitle(title)
-            .setConfirmationIcon()
+//            .setConfirmationIcon()
             .setMessage(message)            
             .addYesButton(yesHandler)
             .addNoButton(noHandler)
@@ -398,7 +409,7 @@ public class Dialog extends Stage {
             .create()
             .setOwner(owner)
             .setTitle(title)
-            .setInfoIcon()
+//            .setInfoIcon()
             .setMessage(message)            
             .addOkButton()
                 .build()
@@ -427,7 +438,7 @@ public class Dialog extends Stage {
             .create()
             .setOwner(owner)
             .setTitle(title)
-            .setWarningIcon()
+//            .setWarningIcon()
             .setMessage(message)
             .addOkButton()
                 .build()
@@ -456,7 +467,7 @@ public class Dialog extends Stage {
             .create()
             .setOwner(owner)
             .setTitle(title)
-            .setErrorIcon()
+//            .setErrorIcon()
             .setMessage(message)
             .addOkButton()
                 .build()
@@ -486,7 +497,7 @@ public class Dialog extends Stage {
             .create()
             .setOwner(owner)
             .setTitle(title)
-            .setThrowableIcon()
+//            .setThrowableIcon()
             .setMessage(message)
             .setStackTrace(t)
             .addOkButton()
@@ -518,7 +529,7 @@ public class Dialog extends Stage {
             .create()
             .setOwner(owner)
             .setTitle(title)
-            .setConfirmationIcon()
+//            .setConfirmationIcon()
             .setMessage(message);
     }
     

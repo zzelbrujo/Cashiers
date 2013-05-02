@@ -10,13 +10,21 @@ root
 { 
     display: block;
 }
-.root
-{
-    
-}
 .label
 {
-    -fx-base: #336699;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+.pane
+{
+    -fx-background-color: #708090;
+}
+.button
+{
+    -fx-base: #000000;
+    -fx-font-weight: bold;
+    -fx-border-color: #000000;
+    -fx-background-insets: 0;
+    -fx-text-fill: #ffffff;
 }

@@ -4,9 +4,10 @@
  */
 package com.cashiers;
 
-import com.cashiers.gui.dialog.Dialog;
-import com.cashiers.gui.MainScene;
 import com.cashiers.gui.BottomHBox;
+import com.cashiers.gui.MainScene;
+import com.cashiers.gui.dialog.Dialog;
+import com.cashiers.util.Util;
 
 /**
  *
@@ -22,9 +23,10 @@ public final class Main extends javafx.application.Application
         s_pStage = primaryStage;
         
         s_pStage.setScene(MainScene.getInstance().getScene());
-        s_pStage.setResizable(true);
+        //s_pStage.setResizable(false);
         s_pStage.setTitle("Sistema");
-
+        s_pStage.initStyle(javafx.stage.StageStyle.UNDECORATED);
+        maximizeStage();
         //s_pStage.setFullScreen(true);
         
         s_pStage.setOnCloseRequest(new javafx.event.EventHandler<javafx.stage.WindowEvent>()
@@ -55,14 +57,22 @@ public final class Main extends javafx.application.Application
         return s_pStage;
     }
     
-    public static void main(String... $args)
-    {
-        launch($args);
-    }
-    
     public static void exitApp()
     {
         MainScene.getInstance().getBottomHBox().stopScheduler();
         javafx.application.Platform.exit();
+    }
+    
+    private void maximizeStage()
+    {   
+        s_pStage.setX(Util.getScreenBounds().getMinX());
+        s_pStage.setY(Util.getScreenBounds().getMinY());
+        s_pStage.setWidth(Util.getScreenBounds().getWidth());
+        s_pStage.setHeight(Util.getScreenBounds().getHeight());
+    }
+    
+    public static void main(String... $args)
+    {
+        launch($args);
     }
 }

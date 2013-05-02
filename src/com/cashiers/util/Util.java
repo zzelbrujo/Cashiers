@@ -43,4 +43,9 @@ public abstract class Util
         return sHour + ":" + sMinute + ":" + sSecond;
     }
     
+    public static javafx.geometry.Rectangle2D getScreenBounds()
+    {
+        return javafx.stage.Screen.getPrimary().getVisualBounds();
+    }
+    
 }

@@ -5,6 +5,7 @@
 
 package com.cashiers.gui;
 
+import com.cashiers.util.Util;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,8 +57,7 @@ public final class MainScene
         m_borderPane.setRight(m_rightPane);
         m_borderPane.setBottom(m_bottomHBox);
         
-        m_Scene = new Scene(m_borderPane);//, 960, 600);
-        //m_Scene = new Scene(m_borderPane, 800, 600);
+        m_Scene = new Scene(m_borderPane);
         m_Scene.getStylesheets().add(MainScene.class.getResource("css/MainScene.css").toExternalForm());         
     }
     
@@ -84,6 +84,8 @@ public final class MainScene
     private void createTableView()
     {
         m_stackPane = new StackPane();
+        m_stackPane.setId("center-stack-pane");
+        
         m_tableView = new TableView<Employee>();
         m_observableList = FXCollections.observableArrayList();
         
@@ -129,21 +131,19 @@ public final class MainScene
        
 //        m_tableView.getSelectionModel().getSelectedItem().getJob();
         
-//        Employee e = new Employee();
-//        e.setName("Miguel Angel");
-//        e.setMiddleName("Covarrubias");
-//        e.setSurName("Hernandez");
-//        e.setJob("Sistemas");
-//        e.setCurrentDate(Util.getCurrentDate());
-//        e.setStartJob("19:11");
-//        e.setEndJob("11:00");
-//        
-//        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
-//        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
-//        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
-//        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
-//        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
+        Employee e = new Employee();
+        e.setName("Miguel Angel");
+        e.setMiddleName("Covarrubias");
+        e.setSurName("Hernandez");
+        e.setJob("Sistemas");
+        e.setCurrentDate(Util.getCurrentDate());
+        e.setStartJob("19:11");
+        e.setEndJob("11:00");
         
+        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
+        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
+        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
+          
         m_stackPane.getChildren().add(m_tableView);
         m_borderPane.setCenter(m_stackPane);
         
