@@ -73,6 +73,6 @@ public final class Main extends javafx.application.Application
     
     public static void main(String... $args)
     {
-        launch($args);
+        javafx.application.Application.launch($args);
     }
 }

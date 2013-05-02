@@ -89,6 +89,8 @@ public final class MainScene
         m_tableView = new TableView<Employee>();
         m_observableList = FXCollections.observableArrayList();
         
+        m_tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        
         TableColumn tableColumnName = new TableColumn("Nombre(s)");
         tableColumnName.setMinWidth(100D);
         tableColumnName.setCellValueFactory(new PropertyValueFactory<Employee, String>("firstName"));
@@ -140,6 +142,12 @@ public final class MainScene
         e.setStartJob("19:11");
         e.setEndJob("11:00");
         
+        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
+        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
+        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
+        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
+        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
+        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
         m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
         m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
         m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
