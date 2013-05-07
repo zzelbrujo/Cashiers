@@ -5,8 +5,7 @@
 
 package com.cashiers.gui;
 
-import com.cashiers.util.Util;
-import javafx.beans.property.SimpleStringProperty;
+import com.cashiers.mysql.Employee;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -22,8 +21,7 @@ import javafx.util.Callback;
  *
  * @author elbrujo
  */
-public final class MainScene
-{
+public final class MainScene {
     private static MainScene s_Instance;
     
     private Scene m_Scene;
@@ -38,13 +36,31 @@ public final class MainScene
     private TableView<Employee> m_tableView;
     private ObservableList<Employee> m_observableList;
        
-    static
-    {
+    static {
         s_Instance = null;
     }
     
-    public MainScene()
-    {
+    private class CustomCellFactory implements 
+            Callback<TableColumn<Employee, String>, TableCell<Employee, String>> {
+        @Override
+        public TableCell<Employee, String> call(TableColumn<Employee, String> param) {
+            TableCell<Employee, String> cell = new TableCell<Employee, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setText(empty ? null : getString());
+                }
+                
+                private String getString() {
+                    return getItem() == null ? "" : getItem().toString();
+                }
+            };
+            cell.setStyle("-fx-alignment: CENTER;");
+            return cell;
+        }
+    }
+    
+    public MainScene() {
         m_topHBox = TopHBox.getInstance();
         m_bottomHBox = BottomHBox.getInstance();
         m_rightPane = RightBorderPane.getInstance();
@@ -61,28 +77,26 @@ public final class MainScene
         m_Scene.getStylesheets().add(MainScene.class.getResource("css/MainScene.css").toExternalForm());         
     }
     
-    public static MainScene getInstance()
-    {
-        if (s_Instance == null)
-        {
+    public static MainScene getInstance() {
+        if (s_Instance == null) {
             s_Instance = new MainScene();
         }
-        
         return s_Instance;
     }
     
-    public javafx.scene.Scene getScene()
-    {
+    public javafx.scene.Scene getScene() {
         return m_Scene;
     }   
     
-    public BottomHBox getBottomHBox()
-    {
+    public BottomHBox getBottomHBox() {
         return m_bottomHBox;
     }
     
-    private void createTableView()
-    {
+    public ObservableList<Employee> getObservableList() {
+        return m_observableList;
+    }
+    
+    private void createTableView() {
         m_stackPane = new StackPane();
         m_stackPane.setId("center-stack-pane");
         
@@ -132,159 +146,10 @@ public final class MainScene
                 tableColumnJob, tableColumnDate, tableColumnSchedule);
        
 //        m_tableView.getSelectionModel().getSelectedItem().getJob();
-        
-        Employee e = new Employee();
-        e.setName("Miguel Angel");
-        e.setMiddleName("Covarrubias");
-        e.setSurName("Hernandez");
-        e.setJob("Sistemas");
-        e.setCurrentDate(Util.getCurrentDate());
-        e.setStartJob("19:11");
-        e.setEndJob("11:00");
-        
-        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
-        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
-        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
-        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
-        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
-        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
-        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
-        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
-        m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);m_observableList.add(e);
-          
+
         m_stackPane.getChildren().add(m_tableView);
         m_borderPane.setCenter(m_stackPane);
         
-    }
-    
-    public class Employee
-    {
-        private final SimpleStringProperty firstName;
-        private final SimpleStringProperty middleName;
-        private final SimpleStringProperty surName;
-        private final SimpleStringProperty job;
-        private final SimpleStringProperty currentDate;
-        private final SimpleStringProperty startJob;
-        private final SimpleStringProperty endJob;
-        private final SimpleStringProperty id;
-       
-        public Employee()
-        {
-            firstName = new SimpleStringProperty();
-            middleName = new SimpleStringProperty();
-            surName = new SimpleStringProperty();
-            job = new SimpleStringProperty();
-            currentDate = new SimpleStringProperty();
-            startJob = new SimpleStringProperty();
-            endJob = new SimpleStringProperty();
-            id = new SimpleStringProperty();
-        }
-    
-        public String getFirstName()
-        {
-            return firstName.get();
-        }
-        
-        public void setName(String v)
-        {
-            firstName.set(v);
-        }
-        
-        public String getMiddleName()
-        {
-            return middleName.get();
-        }
-       
-        public void setMiddleName(String v)
-        {
-            middleName.set(v);
-        }
-        
-        public String getSurName()
-        {
-            return surName.get();      
-        }       
-        
-        public void setSurName(String v)
-        {
-            surName.set(v);
-        }
-        
-        public String getJob()
-        {
-            return job.get();
-        }
-        
-        public void setJob(String v)
-        {
-            job.set(v);
-        }
-        
-        public String getCurrentDate()
-        {
-            return currentDate.get();
-        }
-        
-        public void setCurrentDate(String v)
-        {
-            currentDate.set(v);
-        }
-        
-        public String getStartJob()
-        {
-            return startJob.get();
-        }
-        
-        public void setStartJob(String v)
-        {
-            startJob.set(v);
-        }
-        
-        public String getEndJob()
-        {
-            return endJob.get();
-        }
-        
-        public void setEndJob(String v)
-        {
-            endJob.set(v);
-        }
-        
-        public String getId()
-        {
-            return id.get();
-        }
-        
-        public void setId(String v)
-        {
-            id.set(v);
-        }
-    }
-    
-    public class CustomCellFactory implements 
-            Callback<TableColumn<Employee, String>, TableCell<Employee, String>>
-    {
-        @Override
-        public TableCell<Employee, String> call(TableColumn<Employee, String> param) 
-        {
-            TableCell<Employee, String> cell = new TableCell<Employee, String>() 
-            {
-                @Override
-                public void updateItem(String item, boolean empty)
-                {
-                    super.updateItem(item, empty);
-                    setText(empty ? null : getString());
-                }
-                
-                private String getString() 
-                {
-                    return getItem() == null ? "" : getItem().toString();
-                }
-            };
-            cell.setStyle("-fx-alignment: CENTER;");
-            return cell;
-        }
-    
     }
     
 }

@@ -1,3 +1,4 @@
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -6,80 +7,62 @@ package com.cashiers.gui;
 
 import com.cashiers.Main;
 import com.cashiers.gui.dialog.Dialog;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 
 /**
  *
  * @author elbrujo
  */
-public class RightBorderPane extends javafx.scene.layout.BorderPane
-{
+public class RightBorderPane extends BorderPane {
     private static RightBorderPane s_Instance = null;
     
-    public RightBorderPane()
-    {
+    public RightBorderPane() {
         super();
         
-        setPadding(new javafx.geometry.Insets(0, 10, 0, 10));
+        setPadding(new Insets(0, 10, 0, 10));
         setId("right-border-pane");
         
         addControls();
     }
     
-    public static RightBorderPane getInstance()
-    {
-        if (s_Instance == null)
-        {
-            s_Instance = new RightBorderPane();
-            
+    public static RightBorderPane getInstance() {
+        if (s_Instance == null) {
+            s_Instance = new RightBorderPane();      
         }
         return s_Instance;
     }
     
-    private void addControls()
-    {
-//        final javafx.scene.control.Button m_buttonFind = new javafx.scene.control.Button();
-//        m_buttonFind.setText("Buscar");
-//        m_buttonFind.setFocusTraversable(false);
-//        m_buttonFind.setContentDisplay(javafx.scene.control.ContentDisplay.TOP);
-//        m_buttonFind.setGraphic(new javafx.scene.image.ImageView(
-//                new javafx.scene.image.Image(MainScene.class.getResourceAsStream("images/find.png"))));
-//        m_buttonFind.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>()
-//        {
-//            @Override
-//            public void handle(javafx.event.ActionEvent event) 
-//            {
-//                System.out.println(InputWindow.show("Buscar trabajador", Main.getStage()));
-//            }   
-//        });
-        
-        final javafx.scene.control.Button m_buttonInformation = new javafx.scene.control.Button();
+    private void addControls() {
+        final Button m_buttonInformation = new Button();
         m_buttonInformation.setText("Detalles");
         m_buttonInformation.setFocusTraversable(false);
-        m_buttonInformation.setContentDisplay(javafx.scene.control.ContentDisplay.TOP);
-        m_buttonInformation.setGraphic(new javafx.scene.image.ImageView(
-                new javafx.scene.image.Image(MainScene.class.getResourceAsStream("images/details.png"))));
+        m_buttonInformation.setContentDisplay(ContentDisplay.TOP);
+        m_buttonInformation.setGraphic(new ImageView(
+                new Image(MainScene.class.getResourceAsStream("images/details.png"))));
         
-        final javafx.scene.control.Button m_buttonExit = new javafx.scene.control.Button();
+        final Button m_buttonExit = new Button();
         m_buttonExit.setText("Salir");
         m_buttonExit.setFocusTraversable(false);
-        m_buttonExit.setContentDisplay(javafx.scene.control.ContentDisplay.TOP);
-        m_buttonExit.setGraphic(new javafx.scene.image.ImageView(
-                new javafx.scene.image.Image(MainScene.class.getResourceAsStream("images/exit.png"))));
-        m_buttonExit.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>()
-        {
+        m_buttonExit.setContentDisplay(ContentDisplay.TOP);
+        m_buttonExit.setGraphic(new ImageView(
+                new Image(MainScene.class.getResourceAsStream("images/exit.png"))));
+        m_buttonExit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(javafx.event.ActionEvent event)
-            {
+            public void handle(ActionEvent event) {
                  Dialog.showYesNoConfirmation("","¿Está seguro de querer salir del Sistema?", Main.getStage(), 
-                        new javafx.event.EventHandler<javafx.event.ActionEvent>()
-                        {
+                        new EventHandler<ActionEvent>() {
                             @Override
-                            public void handle(javafx.event.ActionEvent event) 
-                            {
+                            public void handle(ActionEvent event) {
                                 Main.exitApp();
                             }
-                        }, null);
-          
+                        }, null);         
                 event.consume();
             }
         });

@@ -30,6 +30,7 @@ root
 {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
+    -fx-font-style: italic;
 }
 #label-id
 {
@@ -43,14 +44,20 @@ root
 .table-view
 {
     -fx-border-color: #ffffff;
+    -fx-font-size: 10;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
 }
 .table-view .column-header 
 {
-    -fx-background-color: #ffffff;
-    -fx-border-style: none;
-    -fx-font-size: 10;
+    -fx-background-color: #a9a9a9;
+}
+.table-view .column-header .label
+{
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12;
+    -fx-font-style: normal;
     -fx-font-weight: bold;
-    -fx-font-family: "Arial";
 }
 .table-row-cell:empty 
 {
