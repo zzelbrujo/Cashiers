@@ -18,7 +18,7 @@ import java.sql.Statement;
 public final class MySQL {    
     private static MySQL s_Instance = null;
         
-    private String URL = "jdbc:mysql://74.125.131.104:3306/empleados";
+    private String URL = "jdbc:mysql://localhost:3306/empleados";
     private String USER = "root";
     private String PASSWORD = "poi8uyt5";
         
